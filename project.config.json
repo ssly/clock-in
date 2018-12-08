@@ -8,10 +8,11 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"nodeModules": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.2.1",
+	"libVersion": "2.2.5",
 	"appid": "wxbe34a1f88efd8cd7",
 	"projectname": "%E8%BF%90%E5%8A%A8%E5%9B%BE%E8%A1%A8",
 	"isGameTourist": false,

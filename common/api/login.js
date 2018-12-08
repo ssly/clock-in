@@ -2,37 +2,58 @@
  * 登录相关处理
  */
 
-import api from '../../common/api/index'
+import sport from './sport.js'
 
 let isLoginStatus = false
+let code = ''
 
-function login(value) {
+function login(userInfo) {
   return new Promise(resolve => {
-    wx.login({
-      success: ({ code }) => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        getUserInfo().then(({ userInfo }) => {
-          console.log(userInfo, 'userinfo')
-            Object.assign(value, {code});
-            api.sport.login(value).then(({data}) => {
-              // 登录成功，设置userInfo和token至Storage
-              wx.setStorageSync('token', data.token)
-              wx.setStorageSync('userInfo', userInfo)
-              isLoginStatus = true
-              resolve()
-            })
-          })
-      }
+    if (typeof userInfo !== 'object') {
+      resolve(false)
+      return
+    }
+    getWxCode().then(code => {
+      console.log('login中的code', code);
+      const data = { ...userInfo, code }
+      sport.login(data).then(res => {
+        console.log('后台返回了什么', res)
+        isLoginStatus = true
+        resolve(isLoginStatus)
+      })
     })
   })
+    // wx.login({
+    //   success: ({ code }) => {
+    //     // 发送 res.code 到后台换取 openId, sessionKey, unionId
+    //     sport.login({ code }).then(res => {
+    //       console.log('返回了什么', res);
+    //     })
+    //     // getUserInfo().then(({ userInfo }) => {
+    //     //   console.log(userInfo, 'userinfo')
+    //     //     api.sport.login(value).then(({data}) => {
+    //     //       // 登录成功，设置userInfo和token至Storage
+    //     //       wx.setStorageSync('token', data.token)
+    //     //       wx.setStorageSync('userInfo', userInfo)
+    //     //       isLoginStatus = true
+    //     //       resolve()
+    //     //     })
+    //     //   })
+    //   }
+    // })
 }
 
-// 获取微信用户信息
-function getUserInfo() {
+// 获取微信 code
+function getWxCode () {
   return new Promise(resolve => {
-    wx.getUserInfo({
-      success: res => {
-        resolve(res)
+    if (code !== '') {
+      resolve(code)
+      return
+    }
+    wx.login({
+      success: (res) => {
+        code = res.code
+        resolve(code)
       }
     })
   })
@@ -46,9 +67,4 @@ function isLogin() {
 export {
   login,
   isLogin,
-}
-
-export default {
-  login,
-  isLogin
 }

@@ -16,3 +16,11 @@
   border: 1px solid #ffffff;
   border-radius: 60rpx;
 }
+
+.login-tips {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  text-align: center;
+  background: #e4353c;
+}

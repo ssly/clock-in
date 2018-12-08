@@ -1,5 +1,9 @@
 <!--home:index.wxml-->
-<view wx:if="{{fulfilled}}" class="container">
+<view class="container">
+  <view wx:if="{{!logined}}" class="login-tips">
+    <text>授权之后才可以享受打卡服务哦</text>
+    <button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">授权</button>
+  </view>
   <text>今天，你运动了吗？</text>
   <image src="{{logoUrl}}"></image>
   <text>
