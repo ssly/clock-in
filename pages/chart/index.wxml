@@ -1,0 +1,16 @@
+<view>
+  <view wx:if="{{fulfilled}}" class="section">
+    <text class="section__title">运动数据详情</text>
+    <picker mode="date" value="{{nowDate}}" start="2015-01" end="2018-8" bindchange="bindDateChange" fields="month">
+      <view class="picker">
+        请选择: {{nowDate}}
+      </view>
+    </picker>
+  </view>
+  <view class="week-list">
+    <text wx:for="{{weekList}}" class="week-item">{{item}}</text>
+  </view>
+  <view class="date-list">
+    <text wx:for="{{dateList}}" class="{{item.isPunch ? 'date-item date-punch' : 'date-item'}}">{{item.date}}</text>
+  </view>
+</view>

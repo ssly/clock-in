@@ -1,0 +1,24 @@
+/* pages/my/index.wxss */
+.userinfo {
+    width: 100%;
+    height: 280rpx;
+    background-color:#fafafa;
+}
+.userinfo-avatar {
+    width: 200rpx;
+    height: 200rpx;
+    margin-left: 48rpx;
+    margin-top: 40rpx;
+}
+.userinfo-nickname {
+    font-size: 48rpx;
+    position: absolute;
+    left: 284rpx;
+    top: 40rpx;
+}
+.userinfo-gender {
+    font-size: 40rpx;
+    position: absolute;
+    left: 284rpx;
+    top: 160rpx;
+}

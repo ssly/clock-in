@@ -1,0 +1,18 @@
+/**home: index.wxss**/
+.container image{
+  width: 280rpx;
+  height: 280rpx;
+  margin-top: 48rpx;
+  border-radius: 160rpx;
+}
+.punch-view {
+  position: absolute;
+  bottom: 280rpx;
+}
+
+.punch-button {
+  color: #ffffff;
+  background-color: #66CD00;
+  border: 1px solid #ffffff;
+  border-radius: 60rpx;
+}
