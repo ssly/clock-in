@@ -1,5 +1,5 @@
 <!--home:index.wxml-->
-<view wx:if="{{fulfilled}}" class="container">
+<view wx:if="{{false}}" class="container">
   <text>今天，你运动了吗？</text>
   <image src="{{logoUrl}}"></image>
   <text>
@@ -10,4 +10,18 @@
     <button bindtap="dayPunch" class="punch-button" wx:if="{{!isPunch}}">运动打卡</button>
     <button bindtap="dayPunch" class="punch-button" wx:else>取消打卡</button>
   </view>
+</view>
+<view>
+  <view class='header'>
+    <view class='circle'></view>
+    <view class="wx-name">你的名字</view>
+    <view class='notes'>
+      <view>一年有三百六十五个日子</view>
+      <view>五十二万五千分钟。</view>
+    </view>
+  </view>
+  <view class='body'>
+      买没有内容哦
+  </view>
+  <view class='footer'></view>
 </view>

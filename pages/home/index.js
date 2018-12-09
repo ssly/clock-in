@@ -42,6 +42,7 @@ Page({
     });
   },
   onShow: function () {
+    console.warn(3333);
     const _this = this
     console.log('onload')
     // 判断用户是否授权
@@ -55,6 +56,7 @@ Page({
         };
         wx.setStorageSync('userInfo', res.userInfo);
         api.login.login(postObj).then(() => {
+          
           // 登录成功后，去调用当天打卡数据
           _this.updateSportList().then(isPunch => {
             _this.setData({
