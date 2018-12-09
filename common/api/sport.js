@@ -1,5 +1,5 @@
 import { ajax } from '../js/ajax'
-const HOST = 'https://lius.me'
+const HOST = 'http://192.168.0.116:4321'
 
 function getList (data) {
   return ajax('GET', HOST + '/api/sport/get-record', data).then(res => {
@@ -14,7 +14,8 @@ function punch(data) {
 }
 
 function login(data) {
-  return ajax('POST', HOST + '/api/sign-in', data).then(res => {
+  console.log('api/login, data is', data);
+  return ajax('POST', HOST + '/api/login', data).then(res => {
     return res
   })
 }

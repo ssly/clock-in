@@ -1,4 +1,6 @@
-// app.js
+import { login } from "./common/api/login"
+import { on, emit } from './common/js/event'
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -7,18 +9,23 @@ App({
     wx.setStorageSync('logs', logs)
 
     // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
+    // login();
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
+        console.log('wx.getSetting', res);
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
-            success: res => {
+            success: ({ userInfo }) => {
+              wx.showLoading({ title: '登录中...' })
+              // 登录
+              login(userInfo).then(() => {
+                wx.hideLoading()
+                emit('logined')
+              })
+              
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
 
@@ -33,6 +40,7 @@ App({
       }
     })
   },
+
   globalData: {
     userInfo: null
   }

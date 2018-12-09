@@ -1,14 +1,8 @@
 <!--home:index.wxml-->
-<view wx:if="{{false}}" class="container">
-  <text>今天，你运动了吗？</text>
-  <image src="{{logoUrl}}"></image>
-  <text>
-    <block wx:if="{{isPunch}}">你已经打卡了！</block>
-    <block wx:else>还没有打卡哦！</block>
-  </text>
-  <view class="punch-view">
-    <button bindtap="dayPunch" class="punch-button" wx:if="{{!isPunch}}">运动打卡</button>
-    <button bindtap="dayPunch" class="punch-button" wx:else>取消打卡</button>
+<view class="container" wx:if="{{false}}">
+  <view wx:if="{{!logined}}" class="login-tips">
+    <text>授权之后才可以享受打卡服务哦</text>
+    <button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">授权</button>
   </view>
 </view>
 <view>

@@ -43,3 +43,16 @@
   margin-top: 10px;
   color: #dbd8d8;
 }
+.body{
+  color: #f9f9f9;
+  border: 1px solid red;
+  text-align: center;
+  width: 100%;
+}
+.login-tips {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  text-align: center;
+  background: #e4353c;
+}

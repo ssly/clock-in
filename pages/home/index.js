@@ -3,16 +3,19 @@
 import api from '../../common/api/index';
 
 const logoUrl = "../../common/images/sport.jpg";
-import { isLogin } from "../../common/api/login"
+import { isLogin, login } from "../../common/api/login"
+import { on, emit } from '../../common/js/event'
 
 Page({
   data: {
+    logined: true, // 是否登录
     fulfilled: false, // 是否拉去数据成功
     isPunch: false, // 判断今日是否打卡
     logoUrl,
   },
   // 运动打卡
   dayPunch () {
+    console.log('globalData', this.globalData)
     // 判断用户是否登录
     if (!isLogin()) {
       wx.showModal({
@@ -41,40 +44,62 @@ Page({
       })
     });
   },
-  onShow: function () {
-    console.warn(3333);
-    const _this = this
-    console.log('onload')
-    // 判断用户是否授权
-    wx.getUserInfo({
-      success(res) {
-        console.log("[home] getUserInfo success", res);
-        let postObj = {
-          encryptedData: res.encryptedData,
-          iv: res.iv,
-          rawData: res.rawData
-        };
-        wx.setStorageSync('userInfo', res.userInfo);
-        api.login.login(postObj).then(() => {
-          
-          // 登录成功后，去调用当天打卡数据
-          _this.updateSportList().then(isPunch => {
-            _this.setData({
-              fulfilled: true,
-              isPunch: isPunch
-            })
-          })
-        })
-      },
-      fail(res) {
-        console.log("[home] getUserInfo fail", res);
-        _this.setData({
-          fulfilled: true,
-          isPunch: false,
-        })        
 
+  // 获取用户信息
+  onGotUserInfo({ detail }) {
+    wx.showLoading({ title: '登录中...' })
+    login(detail).then(isLogin => {
+      wx.hideLoading()
+      if (isLogin) {
+        this.setData({
+          logined: isLogin,
+        })
       }
     })
+    console.log('获取用户信息回调', detail)
+  },
+
+  onShow: function () {
+    // 订阅登录成功
+    on('logined', () => {
+      this.setData({
+        logined: true,
+      })
+    })
+    const _this = this
+    console.log('HOME: onShow, isLogin', isLogin());
+    this.setData({
+      logined: isLogin(),
+    })
+    // 判断用户是否授权
+    // wx.getUserInfo({
+    //   success(res) {
+    //     console.log("[home] getUserInfo success", res);
+    //     let postObj = {
+    //       encryptedData: res.encryptedData,
+    //       iv: res.iv,
+    //       rawData: res.rawData
+    //     };
+    //     wx.setStorageSync('userInfo', res.userInfo);
+    //     api.login.login(postObj).then(() => {
+    //       // 登录成功后，去调用当天打卡数据
+    //       _this.updateSportList().then(isPunch => {
+    //         _this.setData({
+    //           fulfilled: true,
+    //           isPunch: isPunch
+    //         })
+    //       })
+    //     })
+    //   },
+    //   fail(res) {
+    //     console.log("[home] getUserInfo fail", res);
+    //     _this.setData({
+    //       fulfilled: true,
+    //       isPunch: false,
+    //     })        
+
+    //   }
+    // })
   },
   updateSportList() {
     const today = new Date()
