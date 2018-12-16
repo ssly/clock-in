@@ -15,7 +15,33 @@
     </view>
   </view>
   <view class='body'>
-      买没有内容哦
+      <view class ="clock-days">
+        <view class='total'>
+          <view class='number-days'>0</view>
+          <view class='text-days'>完成天数</view>
+        </view>
+        <view class='during'>
+          <view class='number-days'>0</view>
+          <view class='text-days'>连续天数</view>
+        </view>
+         <view class='his-top'>
+          <view class='number-days'>0</view>
+          <view class='text-days'>历史最高</view>
+        </view>
+      </view>
   </view>
-  <view class='footer'></view>
+  <view class='footer'>
+    <view class='footer-content'>
+      <view class='clock-img'>
+        <image src='/common/images/sun1.png'></image>
+      </view>
+      <view class='clock-name'>
+        坚持早起
+      </view>
+      <view class='clock-time'>
+        <view class='date-hours'>07:34:32</view>
+        <view class='date-day'>2018.12.17</view>
+      </view>
+    </view>
+  </view>
 </view>
