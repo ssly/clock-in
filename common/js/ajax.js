@@ -7,7 +7,7 @@ function ajax (method, url, data) {
       data,
       header: {
         'Content-Type': 'application/json',
-        Cookie: `S-Access-Token=${token}`,
+        Cookie: `Clock-Access-Token=${token}`,
       },
       url,
       success: function (res) {

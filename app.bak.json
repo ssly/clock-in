@@ -1,14 +1,15 @@
+
 {
-  "pages":[
+  "pages": [
     "pages/home/index",
     "pages/chart/index",
     "pages/my/index"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "selectedColor": "#000000",
@@ -20,12 +21,17 @@
         "selectedIconPath": "common/images/tab-bar/home-s.png"
       },
       {
+        "pagePath": "pages/chart/index",
+        "text": "图表",
+        "iconPath": "common/images/tab-bar/chart-n.png",
+        "selectedIconPath": "common/images/tab-bar/chart-s.png"
+      },
+      {
         "pagePath": "pages/my/index",
         "text": "我的",
         "iconPath": "common/images/tab-bar/my-n.png",
         "selectedIconPath": "common/images/tab-bar/my-s.png"
       }
-      
     ]
   },
   "debug": true
