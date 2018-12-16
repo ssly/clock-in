@@ -5,6 +5,7 @@ import api from '../../common/api/index';
 const logoUrl = "../../common/images/sport.jpg";
 import { isLogin, login } from "../../common/api/login"
 import { $on } from '../../common/js/event'
+import { clockIn } from '../../common/api/home'
 
 Page({
   data: {
@@ -62,9 +63,7 @@ Page({
   onShow: function () {
     // 订阅登录成功
     $on('logined', () => {
-      this.setData({
-        logined: true,
-      })
+      clockIn()
     })
     const _this = this
     console.log('HOME: onShow, isLogin', isLogin());
