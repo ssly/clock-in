@@ -1,54 +1,21 @@
 import api from '../../common/api/index'
-
-const getUserGender = function(value) {
-  return value === 1 ? "男" : "女";
-}
+import { on } from '../../common/js/event'
+import { isLogin } from "../../common/api/login"
 
 Page({
     data: {
-        userInfo: {},
-        userGender: "",
-        isLogin: false,
-    },
-    onReady: function() {
-        console.log("[my] onReady");
-    },
-    getUserInfo(res) {
-        console.log("[my] getUserInfo", res);
-        if (res.detail.errMsg.indexOf("ok") !== -1) {
-            let postObj = {
-                encryptedData: res.detail.encryptedData,
-                iv: res.detail.iv,
-                rawData: res.detail.rawData,
-            };
-            // 调登录接口
-            api.login.login(postObj)
-
-            this.setData({
-                isLogin: true,
-                userInfo: res.detail.userInfo,
-                userGender: getUserGender(res.detail.userInfo.gender),
-            })
-        } else {
-            this.setData({
-                isLogin: false,
-            })
-        }
+      logined: isLogin(),
+      clockTimeStr: '',
     },
     onShow: function() {
-        console.log("[my] onShow");
-        let token = wx.getStorageSync('token') || '';
-        let userInfo = wx.getStorageSync('userInfo') || '';
-        if (token) {
-            this.setData({
-                isLogin: true,
-                userInfo,
-                userGender: getUserGender(userInfo.gender),
-            })
-        } else {
-          this.setData({
-            isLogin: false,
-          })
-        }
+      const app = getApp()
+      console.log('my, onshow', app.globalData)
+      on('logined', () => {
+        this.setData({ logined: true })
+      })
+      console.log('登录了吗', isLogin())
+      console.log(this.data.logined)
+      if (this.data.logined) {
+      }
     }
 })

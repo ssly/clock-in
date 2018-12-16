@@ -1,13 +1,13 @@
 const listObj = {}
 
-function on (key, fn) {
+function $on (key, fn) {
   if (!Array.isArray(listObj[key])) {
     listObj[key] = []
   }
   listObj[key].push(fn)
 }
 
-function emit (key) {
+function $emit (key) {
   const list = listObj[key]
   if (!Array.isArray(list)) {
     return
@@ -18,6 +18,11 @@ function emit (key) {
 }
 
 export {
-  on,
-  emit,
+  $on,
+  $emit,
+}
+
+export default {
+  $on,
+  $emit,
 }

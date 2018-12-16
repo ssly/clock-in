@@ -4,7 +4,7 @@ import api from '../../common/api/index';
 
 const logoUrl = "../../common/images/sport.jpg";
 import { isLogin, login } from "../../common/api/login"
-import { on, emit } from '../../common/js/event'
+import { $on } from '../../common/js/event'
 
 Page({
   data: {
@@ -61,7 +61,7 @@ Page({
 
   onShow: function () {
     // 订阅登录成功
-    on('logined', () => {
+    $on('logined', () => {
       this.setData({
         logined: true,
       })
