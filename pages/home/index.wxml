@@ -39,8 +39,8 @@
         坚持早起
       </view>
       <view class='clock-time'>
-        <view class='date-hours'>07:34:32</view>
-        <view class='date-day'>2018.12.17</view>
+        <view class='date-hours'>{{dateTime}}</view>
+        <view class='date-day'>{{dateDay}}</view>
       </view>
     </view>
   </view>

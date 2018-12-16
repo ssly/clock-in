@@ -13,6 +13,8 @@ Page({
     fulfilled: false, // 是否拉去数据成功
     isPunch: false, // 判断今日是否打卡
     logoUrl,
+    dateTime:'',
+    dateDay:''
   },
   // 运动打卡
   dayPunch () {
@@ -63,7 +65,20 @@ Page({
   onShow: function () {
     // 订阅登录成功
     $on('logined', () => {
-      clockIn()
+      clockIn().then((res)=>{
+        console.log(res.data)
+        if (res.data){
+          _this.formatDate();
+          _this.setData({
+            dateTime: new Date(res.data.clockTimestamp).Format("hh:mm:ss"), 
+            dateDay: new Date(res.data.clockTimestamp).Format("yyyy-MM-dd")
+          })
+          // setTimeout(()=>{
+          //   console.log(this.data.dateTime.Format("hh:mm:ss"))
+          //   console.log(this.data.dateTime.Format("yyyy-MM-dd"))
+          // })
+        }
+      })
     })
     const _this = this
     console.log('HOME: onShow, isLogin', isLogin());
@@ -112,5 +127,36 @@ Page({
       }
       return res.data.isPunch
     })
+  },
+  formatDate(){
+    //格式化日期
+    Date.prototype.Format = function (fmt) {
+      var o = {
+        "y+": this.getFullYear(),
+        "M+": this.getMonth() + 1,                 //月份
+        "d+": this.getDate(),                    //日
+        "h+": this.getHours(),                   //小时
+        "m+": this.getMinutes(),                 //分
+        "s+": this.getSeconds(),                 //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S+": this.getMilliseconds()             //毫秒
+      };
+      for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)) {
+          if (k == "y+") {
+            fmt = fmt.replace(RegExp.$1, ("" + o[k]).substr(4 - RegExp.$1.length));
+          }
+          else if (k == "S+") {
+            var lens = RegExp.$1.length;
+            lens = lens == 1 ? 3 : lens;
+            fmt = fmt.replace(RegExp.$1, ("00" + o[k]).substr(("" + o[k]).length - 1, lens));
+          }
+          else {
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+          }
+        }
+      }
+      return fmt;
+    }
   }
 })
