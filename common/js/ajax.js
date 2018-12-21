@@ -1,3 +1,6 @@
+const HOST = 'http://192.168.0.116:4321'
+// const HOST = 'https://lius.me'
+
 function ajax (method, url, data) {
   // console.log('[ajax] method, url, data is', method, url, data);
   let token = wx.getStorageSync('token') || '';
@@ -9,7 +12,7 @@ function ajax (method, url, data) {
         'Content-Type': 'application/json',
         Cookie: `Clock-Access-Token=${token}`,
       },
-      url,
+      url: `${HOST}${url}`,
       success: function (res) {
         resolve(res.data)
       },

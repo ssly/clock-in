@@ -10,17 +10,21 @@ let code = ''
 // 登录，根据登录信息取 openid，但不获需要授权取用户信息
 function login() {
   return getWxCode().then(code => {
-    return sport.login({ code }).then(({ code, data }) => {
-      if (code === '0') {
-        wx.setStorageSync('token', data.token)
+    return sport.login({ code }).then(({ code, data, message }) => {
+      if (code !== '0') {
+        wx.showToast({
+          icon: 'none',
+          title: message,
+        })
+        return
       }
+      wx.setStorageSync('token', data.token)
     })
   })
 }
 
 function updateUserInfo(data) {
   return sport.updateUserInfo(data).then(res => {
-    console.log('hahahha', res)
   })
 }
 

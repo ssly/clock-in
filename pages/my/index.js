@@ -8,14 +8,10 @@ Page({
       clockTimeStr: '',
     },
     onShow: function() {
-      const app = getApp()
-      console.log('my, onshow', app.globalData)
-      on('logined', () => {
-        this.setData({ logined: true })
-      })
-      console.log('登录了吗', isLogin())
-      console.log(this.data.logined)
-      if (this.data.logined) {
-      }
+      // const app = getApp()
+      // console.log('my, onshow', app.globalData)
+      // on('logined', () => {
+      //   this.setData({ logined: true })
+      // })
     }
 })

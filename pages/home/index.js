@@ -66,7 +66,6 @@ Page({
     // 订阅登录成功
     $on('logined', () => {
       clockIn().then((res)=>{
-        console.log(res.data)
         if (res.data){
           _this.formatDate();
           _this.setData({

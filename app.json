@@ -25,7 +25,6 @@
         "iconPath": "common/images/tab-bar/my-n.png",
         "selectedIconPath": "common/images/tab-bar/my-s.png"
       }
-      
     ]
   },
   "debug": true
