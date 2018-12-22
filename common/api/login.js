@@ -5,20 +5,13 @@
 import sport from './sport.js'
 
 let isLoginStatus = false
-let code = ''
 
 // 登录，根据登录信息取 openid，但不获需要授权取用户信息
 function login() {
   return getWxCode().then(code => {
-    return sport.login({ code }).then(({ code, data, message }) => {
-      if (code !== '0') {
-        wx.showToast({
-          icon: 'none',
-          title: message,
-        })
-        return 
-      }
-      wx.setStorageSync('token', data.token)
+    return sport.login({ code }).then(({ token }) => {
+      wx.setStorageSync('token', token)
+      return token
     })
   })
 }
@@ -68,13 +61,8 @@ function updateUserInfo(data) {
 // 获取微信 code
 function getWxCode () {
   return new Promise(resolve => {
-    if (code !== '') {
-      resolve(code)
-      return
-    }
     wx.login({
-      success: (res) => {
-        code = res.code
+      success: ({ code }) => {
         resolve(code)
       }
     })

@@ -8,7 +8,8 @@
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"black",
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "selectedColor": "#000000",
@@ -21,7 +22,7 @@
       },
       {
         "pagePath": "pages/my/index",
-        "text": "我的",
+        "text": "我",
         "iconPath": "common/images/tab-bar/my-n.png",
         "selectedIconPath": "common/images/tab-bar/my-s.png"
       }

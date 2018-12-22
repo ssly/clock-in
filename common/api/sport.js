@@ -13,9 +13,8 @@ function punch(data) {
 }
 
 function login(data) {
-  console.log('/api/login, data is', data);
-  return ajax('POST', '/api/login', data).then(res => {
-    return res
+  return ajax('POST', '/api/login', data).then(({ data }) => {
+    return data
   })
 }
 

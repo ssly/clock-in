@@ -19,111 +19,30 @@ Page({
     continuousCount: 0, // 连续完成天数
     maxContinuousCount: 0, // 最高连续完成天数
   },
-  // 运动打卡
-  dayPunch () {
-    console.log('globalData', this.globalData)
-    // 判断用户是否登录
-    if (!isLogin()) {
-      wx.showModal({
-        title: "请登录后再试",
-        content: "是否跳转到登录页面进行登录？",
-        showCancel: true,
-        success: function (res) {
-          if (res.confirm) {
-            console.log("[home] 用户点击确认");
-            wx.switchTab({
-              url: '/pages/my/index'
-            })
-          } else {
-            console.log("[home] 用户点击取消");
-          }
-        }
-      })
-      return
-    }
-    
-    console.log('[home] dayPunch');
-    //调用打卡接口，不传参数，默认为今天打卡
-    api.sport.punch().then(res => {
-      this.setData({
-        isPunch: res.data.isPunch
-      })
-    });
-  },
 
-  // 获取用户信息
-  onGotUserInfo({ detail }) {
-    wx.showLoading({ title: '登录中...' })
-    login(detail).then(isLogin => {
-      wx.hideLoading()
-      if (isLogin) {
-        this.setData({
-          logined: isLogin,
-        })
-      }
+  onPullDownRefresh () {
+    wx.showNavigationBarLoading()
+    this.updateClockInfo().then(() => {
+      wx.stopPullDownRefresh()
+      wx.hideNavigationBarLoading()
     })
-    console.log('获取用户信息回调', detail)
   },
 
   onShow: function () {
-    // 订阅登录成功
-    $on('logined', () => {
-      clockIn().then((data)=>{
-        // 打卡成功，获取具体打卡信息
-        getClockInfo().then(data => {
-          console.log('打卡信息是什么', data)
-          const { count, continuousCount, maxContinuousCount } = data;
-          _this.setData({ count, continuousCount, maxContinuousCount })
-        })
-
-        if (data){
-          _this.formatDate();
-          _this.setData({
-            dateTime: new Date(data.clockTimestamp).Format("hh:mm:ss"), 
-            dateDay: new Date(data.clockTimestamp).Format("yyyy-MM-dd")
-          })
-          // setTimeout(()=>{
-          //   console.log(this.data.dateTime.Format("hh:mm:ss"))
-          //   console.log(this.data.dateTime.Format("yyyy-MM-dd"))
-          // })
-        }
-      })
-    })
-    const _this = this
     console.log('HOME: onShow, isLogin', isLogin());
     this.setData({
       logined: isLogin(),
     })
-    // 判断用户是否授权
-    // wx.getUserInfo({
-    //   success(res) {
-    //     console.log("[home] getUserInfo success", res);
-    //     let postObj = {
-    //       encryptedData: res.encryptedData,
-    //       iv: res.iv,
-    //       rawData: res.rawData
-    //     };
-    //     wx.setStorageSync('userInfo', res.userInfo);
-    //     api.login.login(postObj).then(() => {
-    //       // 登录成功后，去调用当天打卡数据
-    //       _this.updateSportList().then(isPunch => {
-    //         _this.setData({
-    //           fulfilled: true,
-    //           isPunch: isPunch
-    //         })
-    //       })
-    //     })
-    //   },
-    //   fail(res) {
-    //     console.log("[home] getUserInfo fail", res);
-    //     _this.setData({
-    //       fulfilled: true,
-    //       isPunch: false,
-    //     })        
-
-    //   }
-    // })
+    // 订阅登录成功
+    $on('logined', () => {
+      this.updateClockInfo()
+    })
   },
+
+  onLoad: function () {
+
+  },
+
   updateSportList() {
     const today = new Date()
     const year = today.getFullYear()
@@ -137,6 +56,7 @@ Page({
       return res.data.isPunch
     })
   },
+
   formatDate(){
     //格式化日期
     Date.prototype.Format = function (fmt) {
@@ -167,5 +87,24 @@ Page({
       }
       return fmt;
     }
+  },
+
+  // 更新打卡信息
+  updateClockInfo () {
+    clockIn().then((data) => {
+      // 打卡成功，获取具体打卡信息
+      getClockInfo().then(data => {
+        const { count, continuousCount, maxContinuousCount } = data
+        this.setData({ count, continuousCount, maxContinuousCount })
+      })
+
+      if (data) {
+        this.formatDate()
+        this.setData({
+          dateTime: new Date(data.clockTimestamp).Format("hh:mm:ss"),
+          dateDay: new Date(data.clockTimestamp).Format("yyyy-MM-dd")
+        })
+      }
+    })
   }
 })

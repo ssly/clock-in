@@ -4,28 +4,32 @@ import { isLogin } from "../../common/api/login"
 import { setValidTime, getValidTime } from "../../common/api/my.js"
 
 Page({
-    data: {
-      logined: isLogin(),
-      clockTimeStr: '',
-      startTime: '',
-      endTime: '',
-      loading: false
-    },
-    onShow: function() {
-      // const app = getApp()
-      // console.log('my, onshow', app.globalData)
-      // on('logined', () => {
-      //   this.setData({ logined: true })
-      // })
-      getValidTime().then(data => {
-        const { startTime, endTime } = data;
-        this.setData({
-          startTime,
-          endTime
-        })
-        console.log(data)
+  data: {
+    logined: isLogin(),
+    clockTimeStr: '',
+    startTime: '',
+    endTime: '',
+    loading: false
+  },
+
+  onPullDownRefresh() {
+    wx.stopPullDownRefresh()
+  },
+  onShow: function() {
+    // const app = getApp()
+    // console.log('my, onshow', app.globalData)
+    // on('logined', () => {
+    //   this.setData({ logined: true })
+    // })
+    getValidTime().then(data => {
+      const { startTime, endTime } = data;
+      this.setData({
+        startTime,
+        endTime
       })
-    },
+      console.log(data)
+    })
+  },
   bindstartTime: function(val) {
     const startTime = val.detail.value;
     this.setData({
