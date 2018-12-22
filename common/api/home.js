@@ -15,7 +15,7 @@ function clockIn() {
           }
         }
       })
-      return {}
+      return null
     }
     if (code !== '0') {
       wx.showToast({
@@ -23,7 +23,7 @@ function clockIn() {
         title: message,
         duration: 3000,
       })
-      return {}
+      return null
     }
 
     return data
@@ -32,7 +32,9 @@ function clockIn() {
 
 function getClockInfo() {
   return ajax('GET', '/api/clock/info').then(({ code, data }) => {
-    return data
+    if (code === '0') {
+      return data
+    }
   })
 }
 

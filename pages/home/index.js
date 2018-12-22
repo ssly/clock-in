@@ -14,7 +14,10 @@ Page({
     isPunch: false, // 判断今日是否打卡
     logoUrl,
     dateTime:'',
-    dateDay:''
+    dateDay:'',
+    count: 0, // 完成天数
+    continuousCount: 0, // 连续完成天数
+    maxContinuousCount: 0, // 最高连续完成天数
   },
   // 运动打卡
   dayPunch () {
@@ -69,6 +72,8 @@ Page({
         // 打卡成功，获取具体打卡信息
         getClockInfo().then(data => {
           console.log('打卡信息是什么', data)
+          const { count, continuousCount, maxContinuousCount } = data;
+          _this.setData({ count, continuousCount, maxContinuousCount })
         })
 
         if (data){

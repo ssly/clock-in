@@ -16,7 +16,7 @@ function login() {
           icon: 'none',
           title: message,
         })
-        return
+        return 
       }
       wx.setStorageSync('token', data.token)
     })

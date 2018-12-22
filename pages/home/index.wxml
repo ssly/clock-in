@@ -17,15 +17,15 @@
   <view class='body'>
       <view class ="clock-days">
         <view class='total'>
-          <view class='number-days'>0</view>
+          <view class='number-days'>{{count}}</view>
           <view class='text-days'>完成天数</view>
         </view>
         <view class='during'>
-          <view class='number-days'>0</view>
+          <view class='number-days'>{{continuousCount}}</view>
           <view class='text-days'>连续天数</view>
         </view>
          <view class='his-top'>
-          <view class='number-days'>0</view>
+          <view class='number-days'>{{maxContinuousCount}}</view>
           <view class='text-days'>历史最高</view>
         </view>
       </view>

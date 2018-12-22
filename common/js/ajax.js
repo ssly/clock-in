@@ -1,5 +1,5 @@
-const HOST = 'http://192.168.0.116:4321'
-// const HOST = 'https://lius.me'
+// const HOST = 'http://192.168.0.116:4321'
+const HOST = 'https://lius.me'
 
 function ajax (method, url, data) {
   // console.log('[ajax] method, url, data is', method, url, data);
