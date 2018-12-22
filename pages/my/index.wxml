@@ -1,4 +1,33 @@
 <view>
-  <view>{{logined}}</view>
-  <view wx:if="{{clockTimeStr}}">打卡时间：{{clockTimeStr}}</view>
+  <view>
+    <view>设置有效打卡时间：</view>
+    <view class='item-list'>
+      <picker
+      class="picker"
+      mode="time"
+      value="{{startTime}}"
+      start="03:00"
+      end="{{endTime}}"
+      bindchange="bindstartTime"
+    >
+      <input class='time-picker' disabled type="text" placeholder="起始时间" value="{{startTime}}"/>
+    </picker>
+    <text>-</text>
+    <picker
+      class='picker'
+      mode="time"
+      value="{{endTime}}"
+      start="{{startTime}}"
+      bindchange="bindendTime"
+    >
+      <input type="text" disabled placeholder="截至时间" value="{{endTime}}"/>
+    </picker>
+    </view>
+  </view>
+  <button
+    type="primary"
+    size="default"
+    loading="{{loading}}"
+    bindtap="saveModify"
+  >保存修改</button>
 </view>
