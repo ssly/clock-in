@@ -29,6 +29,14 @@ function clockIn() {
     return data
   })
 }
+
+function getClockInfo() {
+  return ajax('GET', '/api/clock/info').then(({ code, data }) => {
+    return data
+  })
+}
+
 export {
-  clockIn
+  clockIn,
+  getClockInfo,
 }

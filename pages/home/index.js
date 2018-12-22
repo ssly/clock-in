@@ -5,7 +5,7 @@ import api from '../../common/api/index';
 const logoUrl = "../../common/images/sport.jpg";
 import { isLogin, login } from "../../common/api/login"
 import { $on } from '../../common/js/event'
-import { clockIn } from '../../common/api/home'
+import { clockIn, getClockInfo } from '../../common/api/home'
 
 Page({
   data: {
@@ -65,12 +65,17 @@ Page({
   onShow: function () {
     // 订阅登录成功
     $on('logined', () => {
-      clockIn().then((res)=>{
-        if (res.data){
+      clockIn().then((data)=>{
+        // 打卡成功，获取具体打卡信息
+        getClockInfo().then(data => {
+          console.log('打卡信息是什么', data)
+        })
+
+        if (data){
           _this.formatDate();
           _this.setData({
-            dateTime: new Date(res.data.clockTimestamp).Format("hh:mm:ss"), 
-            dateDay: new Date(res.data.clockTimestamp).Format("yyyy-MM-dd")
+            dateTime: new Date(data.clockTimestamp).Format("hh:mm:ss"), 
+            dateDay: new Date(data.clockTimestamp).Format("yyyy-MM-dd")
           })
           // setTimeout(()=>{
           //   console.log(this.data.dateTime.Format("hh:mm:ss"))
