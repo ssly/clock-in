@@ -7,8 +7,12 @@
 </view>
 <view>
   <view class='header'>
-    <view class='circle'></view>
-    <view class="wx-name">你的名字</view>
+    <view class='circle'>
+      <open-data  type="userAvatarUrl"></open-data>
+    </view>
+    <view class="wx-name">
+      <open-data type="userNickName"></open-data>
+    </view>
     <view class='notes'>
       <view>一年有三百六十五个日子</view>
       <view>五十二万五千分钟。</view>

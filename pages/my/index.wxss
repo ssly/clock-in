@@ -1,20 +1,15 @@
 /* pages/my/index.wxss */
-.userinfo {
-    width: 100%;
-    height: 280rpx;
-    background-color:#fafafa;
-}
 .userinfo-avatar {
-    width: 200rpx;
-    height: 200rpx;
-    margin-left: 48rpx;
-    margin-top: 40rpx;
+    width: 130rpx;
+    height: 130rpx;
+    /* margin-left: 10rpx; */
+    margin-top: 10rpx;
 }
 .userinfo-nickname {
-    font-size: 48rpx;
+    font-size: 34rpx;
     position: absolute;
-    left: 284rpx;
-    top: 40rpx;
+    left: 184rpx;
+    top: 20rpx;
 }
 .userinfo-gender {
     font-size: 40rpx;
@@ -24,21 +19,43 @@
 }
 
 .item-list {
-  border-top: 1rpx solid #e5e5e5;
-  border-bottom: 1rpx solid #e5e5e5;
+  border-top: 1rpx solid transparent;
+  /* border-bottom: 1rpx solid #e5e5e5; */
   height: 80rpx;
   padding: 0 30rpx;
   margin: 20rpx 0;
+  background: #fff;
 }
 
 .picker {
   display: inline-block;
   width: 45%;
   height: 80rpx;
-  background: #fafafa;
+  /* background: #fafafa; */
 }
 
 .picker input {
   height:80rpx;
   line-height:80rpx;
+  text-align: center;
+}
+text {
+  line-height:80rpx;
+  display:inline-block;
+  vertical-align:top;
+
+}
+
+.my-container {
+  background: #fafafa;
+  padding-top: 30rpx;
+}
+.userinfo {
+  position: relative;
+  width: 100%;
+  height: 150rpx; 
+}
+
+.prompt-title {
+  font-size: 34rpx;
 }
