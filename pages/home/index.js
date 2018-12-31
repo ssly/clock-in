@@ -93,6 +93,8 @@ Page({
           dateTime: new Date(data.clockTimestamp).Format("hh:mm:ss"),
           dateDay: new Date(data.clockTimestamp).Format("yyyy-MM-dd")
         })
+      } else {
+        // 没有打卡信息
       }
 
       // 打卡成功，获取具体打卡信息

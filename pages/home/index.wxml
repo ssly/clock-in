@@ -36,10 +36,15 @@
       <view class='clock-name'>
         坚持早起
       </view>
-      <view class='clock-time'>
-        <view class='date-hours'>{{dateTime}}</view>
-        <view class='date-day'>{{dateDay}}</view>
-      </view>
+      <block wx:if="{{dateTime}}">
+        <view class='clock-time'>
+          <view class='date-hours'>{{dateTime}}</view>
+          <view class='date-day'>{{dateDay}}</view>
+        </view>
+      </block>
+      <block wx:else>
+        <text class='clock-time-tips'>不在打卡有效时间内</text>
+      </block>
     </view>
   </view>
 </view>
