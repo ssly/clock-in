@@ -1,7 +1,7 @@
 import { ajax } from '../js/ajax'
 
 function clockIn() {
-  return ajax('POST', '/api/clock/in').then(({ data }) => {
+  return ajax('POST', '/api/clock/in', undefined, { toast: false }).then(({ data }) => {
     return data || null
   })
 }

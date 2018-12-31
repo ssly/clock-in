@@ -1,7 +1,8 @@
-// const HOST = 'http://192.168.0.116:4321'
-const HOST = 'https://lius.me'
+const HOST = 'http://localhost:4321'
+// const HOST = 'https://lius.me'
 
-function ajax (method, url, data) {
+function ajax (method, url, data, options = {}) {
+  const toast = typeof options.toast === 'undefined' ? true : options.toast
   // console.log('[ajax] method, url, data is', method, url, data);
   let token = wx.getStorageSync('token') || '';
   return new Promise(resolve => {
@@ -32,12 +33,13 @@ function ajax (method, url, data) {
             })
             break
           default:
-            console.log(data)
-            wx.showToast({
-              icon: 'none',
-              title: data.message,
-              duration: 3000,
-            })
+            if (toast) {
+              wx.showToast({
+                icon: 'none',
+                title: data.message,
+                duration: 3000,
+              })
+            }
         }
         resolve(data)
       },

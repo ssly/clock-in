@@ -4,24 +4,21 @@
 
 import sport from './sport.js'
 
-let isLoginStatus = false
-
 // 登录，根据登录信息取 openid，但不获需要授权取用户信息
 function login() {
   return getWxCode().then(code => {
-    return sport.login({ code }).then(({ token }) => {
+    return sport.login({ code }).then(({ token, userInfo }) => {
       wx.setStorageSync('token', token)
-      return token
+      return userInfo
     })
   })
 }
 
-function updateUserInfo(data) {
-  return sport.updateUserInfo(data).then(res => {
-  })
+// 授权用户信息
+function setUserInfo(data) {
+  return sport.updateUserInfo(data)
 }
 
-// 授权获取用户信息
 // function login(userInfo) {
 //   return new Promise(resolve => {
 //     if (typeof userInfo !== 'object') {
@@ -30,7 +27,7 @@ function updateUserInfo(data) {
 //     }
 //     getWxCode().then(code => {
 //       console.log('login中的code', code);
-//       const data = { ...userInfo, code }
+//       const data = { ..., code }
 //       sport.login(data).then(res => {
 //         console.log('后台返回了什么', res)
 //         isLoginStatus = true
@@ -69,13 +66,7 @@ function getWxCode () {
   })
 }
 
-// 判断是否登录
-function isLogin() {
-  return isLoginStatus
-}
-
 export {
   login,
-  isLogin,
-  updateUserInfo,
+  setUserInfo,
 }

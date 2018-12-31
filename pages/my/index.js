@@ -1,31 +1,39 @@
 import api from '../../common/api/index'
 import { on } from '../../common/js/event'
-import { isLogin } from "../../common/api/login"
+import { setUserInfo } from "../../common/api/login"
 import { setValidTime, getValidTime } from "../../common/api/my.js"
+
+const app = getApp()
 
 Page({
   data: {
-    logined: isLogin(),
     clockTimeStr: '',
     startTime: '',
-    endTime: '',
-    loading: false
+    endTime: '08:00',
+    loading: false,
+    userInfo: null,
   },
 
   onPullDownRefresh() {
-    wx.stopPullDownRefresh()
+    wx.showNavigationBarLoading()
+    setTimeout(() => {
+      wx.stopPullDownRefresh()
+      wx.hideNavigationBarLoading()
+    })
   },
   onShow: function() {
-    // const app = getApp()
-    // console.log('my, onshow', app.globalData)
-    // on('logined', () => {
-    //   this.setData({ logined: true })
-    // })
+    console.log('my, onshow', app.globalData)
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+      })
+    }
+
     getValidTime().then(data => {
       const { startTime, endTime } = data;
       this.setData({
         startTime,
-        endTime
+        endTime: endTime || '08:00',
       })
       console.log(data)
     })
@@ -35,15 +43,26 @@ Page({
     this.setData({
       startTime
     });
-    console.log(val);
+  },
 
+  // getUserInfo() {
+  //   wx.showToast({
+  //     icon: 'none',
+  //     title: '该功能暂时未开放，敬请期待',
+  //     duration: 3000,
+  //   })
+  // },
+
+  onGotUserInfo({ detail }) {
+    if (detail.errMsg === 'getUserInfo:ok') {
+      app.globalData.userInfo = detail.userInfo
+      this.setData({
+        userInfo: app.globalData.userInfo,
+      })
+      setUserInfo(detail.userInfo)
+    }
   },
-  bindendTime: function (val) {
-    const endTime = val.detail.value;
-    this.setData({
-      endTime
-    });
-  },
+
   saveModify() {
     if (this.data.startTime || this.data.endTime) {
       this.setData({loading: true});

@@ -19,7 +19,7 @@ function login(data) {
 }
 
 function updateUserInfo(data) {
-  return ajax('POST', '/api/login/userinfo', data).then(res => {
+  return ajax('POST', '/api/clock/set-info', data).then(res => {
     return res
   })
 }

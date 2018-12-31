@@ -31,7 +31,6 @@
   height: 200rpx;
   margin-top: 40rpx;
   border-radius: 50%;
-  border: 1px solid red;
   overflow: hidden;
   /* background: url('https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKnVibLzcaoEVL5ZsGurgiajmaQCDnrdBz0YTzUicZyK2pn6DCKH2NMIYqFSfhZbR5tbWibBr3vCLfP1A/132') center center no-repeat; */
 }

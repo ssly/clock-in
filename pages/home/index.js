@@ -3,13 +3,12 @@
 import api from '../../common/api/index';
 
 const logoUrl = "../../common/images/sport.jpg";
-import { isLogin, login } from "../../common/api/login"
+import { login } from "../../common/api/login"
 import { $on } from '../../common/js/event'
 import { clockIn, getClockInfo } from '../../common/api/home'
 
 Page({
   data: {
-    logined: true, // 是否登录
     fulfilled: false, // 是否拉去数据成功
     isPunch: false, // 判断今日是否打卡
     logoUrl,
@@ -29,10 +28,6 @@ Page({
   },
 
   onShow: function () {
-    console.log('HOME: onShow, isLogin', isLogin());
-    this.setData({
-      logined: isLogin(),
-    })
     // 订阅登录成功
     $on('logined', () => {
       this.updateClockInfo()
@@ -91,13 +86,7 @@ Page({
 
   // 更新打卡信息
   updateClockInfo () {
-    clockIn().then((data) => {
-      // 打卡成功，获取具体打卡信息
-      getClockInfo().then(data => {
-        const { count, continuousCount, maxContinuousCount } = data
-        this.setData({ count, continuousCount, maxContinuousCount })
-      })
-
+    return clockIn().then((data) => {
       if (data) {
         this.formatDate()
         this.setData({
@@ -105,6 +94,12 @@ Page({
           dateDay: new Date(data.clockTimestamp).Format("yyyy-MM-dd")
         })
       }
+
+      // 打卡成功，获取具体打卡信息
+      return getClockInfo().then(data => {
+        const { count, continuousCount, maxContinuousCount } = data
+        this.setData({ count, continuousCount, maxContinuousCount })
+      })
     })
   }
 })

@@ -1,4 +1,9 @@
 /* pages/my/index.wxss */
+.userinfo {
+  width: 100%;
+  overflow: hidden;
+}
+
 .userinfo-avatar {
     width: 130rpx;
     height: 130rpx;

@@ -1,14 +1,8 @@
 <!--home:index.wxml-->
-<view class="container" wx:if="{{false}}">
-  <view wx:if="{{!logined}}" class="login-tips">
-    <text>授权之后才可以享受打卡服务哦</text>
-    <button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">授权</button>
-  </view>
-</view>
 <view>
   <view class='header'>
     <view class='circle'>
-      <open-data  type="userAvatarUrl"></open-data>
+      <open-data type="userAvatarUrl"></open-data>
     </view>
     <view class="wx-name">
       <open-data type="userNickName"></open-data>
